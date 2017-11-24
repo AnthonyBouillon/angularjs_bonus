@@ -2,42 +2,27 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-    <title>Exercice 3</title>
+    <link rel="stylesheet" href="style.css">
+    <title>Les routes</title>
   </head>
   <body ng-app>
-    <form name="myForm">
-      <!-- input Nom + deux div pour message error et correct -->                                                                  <!-- .{0,} = 1 caractère et plus -->
-      <input type="text" name="name" placeholder="Nom" ng-model="name" pattern="[A-Za-z].{0,}" required/>
-      <!-- Erreur par rapport au regex (pattern) -->
-      <div ng-show="myForm.name.$error.pattern">Seul les lettres sans accents sont autorisés</div>
-      <hr>
-      <!-- input Email + deux div pour message error et correct -->
-      <input type="email" name="email" placeholder="Email" ng-model="email" required/>
-      <div ng-show="myForm.email.$error.email">Votre adresse mail est incorrect</div>
-      <hr>
-      <!-- regex minuscule majuscule accents nombres et 0 à 10 caractères -->
-      <input type="text" name="sujet" placeholder="Sujet" ng-model="object" pattern="[A-Za-z0-9-éèàê'-].{0,9}" required/>
-      <div ng-show="myForm.sujet.$error.pattern">Incorrect votre sujet comporte plus de 10 caractères</div>
-      <hr>
-      <textarea name="text" rows="8" cols="50" placeholder="Écrivez votre message" ng-model="message" pattern="[A-Za-z0-9-éèàê'-].{0,50}" required></textarea>
-      <!-- MyForm = nom de la balise form + sujet = le name de l'input -->
-      <div style="border: 2px solid red; width: 400px;" ng-show="myForm.text.$error.pattern">Vous êtes limité a 50 caractères pour l'exemple.</div>
-      <!-- Bouton envoyez -->
-      <hr>
-      <input ng-model="object" ng-show="showInput"/>
-      <hr>
-      <button ng-click="showInput=true">Validez le formulaire</button>
-    </form>
-    <!-- css -->
-    <style >
-    hr{
-      width: 250px;
-      margin-left: 0;
-    }
-    </style>
-	   <script>
-
-	   </script>
+   <form name="myForm">
+     <!-- Pseudo -->
+      <input type="text" name="name" placeholder="Nom" ng-model="name" ng-pattern="/^[0-9]/" required>
+      <!-- Message erreur name du form + name du model + name du name + $error + le pattern -->
+      <div ng-show="myForm.name.$error.pattern">Je n'accepte que les chiffres, c'est con mais c'est comme ça !</div>
+      <!-- E-mail -->
+      <input type="text" name="email" placeholder="E-mail" ng-model="email" ng-pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/" required><br>
+      <div ng-show="myForm.email.$error.pattern">Quoi tu sais plus écrire ton mail? Ou tu sais pas ce que c'est?</div>
+      <!-- Sujet -->
+      <input type="text" name="subject" placeholder="Sujet" ng-model="subject" ng-pattern="/[A-Z]{10}/" required><br>
+      <div ng-show="myForm.subject.$error.pattern">Met des majuscules et 10 caractères minimum, pourquoi ? Pourquoi pas..</div>
+      <!-- Message -->
+      <textarea type="text" name="message" placeholder="Message" ng-model="message" ng-pattern="/[a-zA-Z]{3000}/"></textarea>
+      <div ng-show="myForm.message.$error.pattern">3000 caractères minimum pour ton message. Bonne chance !</div><br>
+      <!-- Bouton validez -->
+      <button>Validez</button>
+  </form>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
   </body>
 </html>
